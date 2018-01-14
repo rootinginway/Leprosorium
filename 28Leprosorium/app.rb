@@ -10,10 +10,12 @@ def init_db
 end
 
 before do
+	#инициализация БД
 	init_db
 end
 
 configure do
+		#инициализация БД
 		init_db
 		@db.execute 'CREATE TABLE IF NOT EXISTS "Posts"
 		 (
