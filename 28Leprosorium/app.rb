@@ -9,10 +9,14 @@ def init_db
 	@db.results_as_hash = true
 end
 
+#before вызывается каждый раз при перезагрузке любой стр.
 before do
 	#инициализация БД
 	init_db
 end
+
+#configure вызывается каждый раз при конфигурации приложения
+# когда изменился код программы и перезагрузилась страница
 
 configure do
 		#инициализация БД
@@ -38,4 +42,9 @@ post '/new' do
  content = params[:content]
 
  erb "You typed #{content} here."
+
+ 	if content.length <=0
+ 		@error = 'Type text'
+ 		return erb :new
+	end
 end
