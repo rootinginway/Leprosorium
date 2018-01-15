@@ -31,20 +31,25 @@ end
 
 
 get '/' do
-	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
+	erb :index
 end
 
-get '/new' do
+
+get '/new post' do
 	erb :new
 end
 
-post '/new' do
+post '/new post' do
  content = params[:content]
 
- erb "You typed #{content} here."
-
- 	if content.length <=0
+if content.length <=0
  		@error = 'Type text'
  		return erb :new
 	end
+
+	# сохранение данных в БД
+ @db.execute 'insert into Posts (content, created_date) values (?, datetime())', [content]
+ erb "You typed #{content} here."
+
+ 	
 end
